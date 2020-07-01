@@ -1,6 +1,6 @@
-dist: trusty
+dist: bionic
 addons:
-    firefox: "49.0"
+    firefox: "78.0"
 language: node_js
 before_install:
     - sudo apt-get update -q

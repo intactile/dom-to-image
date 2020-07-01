@@ -1,0 +1,42 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base", "plugin:mocha/recommended", "plugin:prettier/recommended"],
+  "env": {
+    "browser": true
+  },
+  "plugins": ["jasmine"],
+  "globals": {
+    "__DEV__": false,
+    "__TEST__": false,
+    "__PROD__": false,
+    "__COVERAGE__": false,
+    "describe": false,
+    "it": false,
+    "afterEach": false,
+    "assert": false
+  },
+
+  "rules": {
+    "no-console": "error",
+    "object-curly-newline": 0,
+    "prefer-destructuring": 0,
+    "comma-dangle": 0,
+    "no-underscore-dangle": 0,
+    "no-named-as-default-member": 0,
+    "no-lonely-if": 2,
+    "no-nested-ternary": 2,
+    "no-throw-literal": 0,
+    "no-plusplus": 0,
+    "max-nested-callbacks": [2, { "max": 5 }],
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
+    "constructor-super": 2,
+    "no-this-before-super": 2,
+    "prefer-spread": 2,
+    "prefer-reflect": 0,
+    "no-warning-comments": [1, { "terms": ["todo", "fixme"], "location": "start" }],
+    "no-param-reassign": 0,
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "complexity": ["error", 4],
+    "mocha/no-mocha-arrows": 0
+  }
+}
