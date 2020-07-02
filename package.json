@@ -1,8 +1,8 @@
 {
-  "name": "dom-to-image",
+  "name": "dom-to-image-next",
   "version": "2.6.0",
   "description": "Generates an image from a DOM node using HTML5 canvas and SVG",
-  "main": "umd/dom-to-image.js",
+  "main": "umd/dom-to-image-next.js",
   "module": "esm/index.js",
   "dependencies": {},
   "devDependencies": {
@@ -58,7 +58,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tsayen/dom-to-image.git"
+    "url": "git+https://github.com/intactile/dom-to-image-next.git"
   },
   "keywords": [
     "dom",
@@ -69,10 +69,10 @@
     "canvas",
     "svg"
   ],
-  "author": "Anatolii Saienko <anatoly.sayenko@gmail.com>",
+  "author": "Thomas Paillot <paillot.thomas@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tsayen/dom-to-image/issues"
+    "url": "https://github.com/intactile/dom-to-image-next/issues"
   },
-  "homepage": "https://github.com/tsayen/dom-to-image#readme"
+  "homepage": "https://github.com/intactile/dom-to-image-next#readme"
 }

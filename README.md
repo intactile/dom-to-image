@@ -1,12 +1,16 @@
 # DOM to Image
 
-[![Build Status](https://travis-ci.org/tsayen/dom-to-image.svg?branch=master)](https://travis-ci.org/tsayen/dom-to-image)
+ [![Build Status](https://travis-ci.org/github/intactile/dom-to-image-next.svg?branch=master)](https://travis-ci.org/github/intactile/dom-to-image-next)
 
 ## What is it
 
-**dom-to-image** is a library which can turn arbitrary DOM node into
-a vector (SVG) or raster (PNG or JPEG) image, written in JavaScript. It's
-based on [domvas by Paul Bakaus](https://github.com/pbakaus/domvas)
+**dom-to-image-next** is a library which can turn arbitrary DOM node into
+a vector (SVG) or raster (PNG or JPEG) image, written in JavaScript.
+
+This fork of [dom-to-image by Anatolii Saienko (tsayen)](https://github.com/tsayen/dom-to-image)
+is a complete rewrite of the lib in ES6 syntax.
+
+Anatolii's version was based on [domvas by Paul Bakaus](https://github.com/pbakaus/domvas)
 and has been completely rewritten, with some bugs fixed and some new
 features (like web font and image support) added.
 
@@ -14,30 +18,19 @@ features (like web font and image support) added.
 
 ### NPM
 
-`npm install dom-to-image`
+`npm install dom-to-image-next`
+
+### Yarn
+
+`yarn add dom-to-image-next`
 
 Then load
 
 ```javascript
 /* in ES 6 */
-import domtoimage from 'dom-to-image';
+import domtoimage from 'dom-to-image-next';
 /* in ES 5 */
-var domtoimage = require('dom-to-image');
-```
-
-### Bower
-
-`bower install dom-to-image`
-
-Include either `src/dom-to-image.js` or `dist/dom-to-image.min.js` in your page
-and it will make the `domtoimage` variable available in the global scope.
-
-```html
-<script src="path/to/dom-to-image.min.js" />
-<script>
-  domtoimage.toPng(node)
-  //...
-</script>
+const domtoimage = require('dom-to-image-next');
 ```
 
 ## Usage
@@ -47,16 +40,16 @@ and return promises, which are fulfilled with corresponding data URLs.
 Get a PNG image base64-encoded data URL and display right away:
 
 ```javascript
-var node = document.getElementById('my-node');
+const node = document.querySelector('.my-node');
 
 domtoimage.toPng(node)
-    .then(function (dataUrl) {
-        var img = new Image();
+    .then((dataUrl) => {
+        const img = new Image();
         img.src = dataUrl;
         document.body.appendChild(img);
     })
-    .catch(function (error) {
-        console.error('oops, something went wrong!', error);
+    .catch((error) => {
+        console.error('Oops, something went wrong!', error);
     });
 ```
 
@@ -64,18 +57,16 @@ Get a PNG image blob and download it (using [FileSaver](https://github.com/eligr
 for example):
 
 ```javascript
-domtoimage.toBlob(document.getElementById('my-node'))
-    .then(function (blob) {
-        window.saveAs(blob, 'my-node.png');
-    });
+domtoimage.toBlob(document.querySelector('.my-node'))
+    .then((blob) => window.saveAs(blob, 'my-node.png'));
 ```
 
 Save and download a compressed JPEG image:
 
 ```javascript
-domtoimage.toJpeg(document.getElementById('my-node'), { quality: 0.95 })
-    .then(function (dataUrl) {
-        var link = document.createElement('a');
+domtoimage.toJpeg(document.querySelector('.my-node'), { quality: 0.95 })
+    .then((dataUrl) => {
+        const link = document.createElement('a');
         link.download = 'my-image-name.jpeg';
         link.href = dataUrl;
         link.click();
@@ -85,12 +76,10 @@ domtoimage.toJpeg(document.getElementById('my-node'), { quality: 0.95 })
 Get an SVG data URL, but filter out all the `<i>` elements:
 
 ```javascript
-function filter (node) {
-    return (node.tagName !== 'i');
-}
+const filter = (node) => node.tagName !== 'i';
 
-domtoimage.toSvg(document.getElementById('my-node'), {filter: filter})
-    .then(function (dataUrl) {
+domtoimage.toSvg(document.querySelector('.my-node'), { filter })
+    .then((dataUrl) => {
         /* do something */
     });
 ```
@@ -99,12 +88,12 @@ Get the raw pixel data as a [Uint8Array](https://developer.mozilla.org/en-US/doc
 with every 4 array elements representing the RGBA data of a pixel:
 
 ```javascript
-var node = document.getElementById('my-node');
+const node = document.querySelector('.my-node');
 
 domtoimage.toPixelData(node)
-    .then(function (pixels) {
-        for (var y = 0; y < node.scrollHeight; ++y) {
-          for (var x = 0; x < node.scrollWidth; ++x) {
+    .then((pixels) => {
+        for (let y = 0; y < node.scrollHeight; y++) {
+          for (let x = 0; x < node.scrollWidth; x++) {
             pixelAtXYOffset = (4 * y * node.scrollHeight) + (4 * x);
             /* pixelAtXY is a Uint8Array[4] containing RGBA values of the pixel at (x, y) in the range 0..255 */
             pixelAtXY = pixels.slice(pixelAtXYOffset, pixelAtXYOffset + 4);
@@ -113,12 +102,14 @@ domtoimage.toPixelData(node)
     });
 ```
 
-* * *
+Get a canvas object:
 
-_All the functions under `impl` are not public API and are exposed only
-for unit testing._
-
-* * *
+```javascript
+domtoimage.toCanvas(document.querySelector('.my-node'))
+    .then((canvas) => {
+        console.log('canvas', canvas.width, canvas.height);
+    });
+```
 
 ### Rendering options
 
@@ -157,8 +148,8 @@ A data URL for a placeholder image that will be used when fetching an image fail
 
 ## Browsers
 
-It's tested on latest Chrome and Firefox (49 and 45 respectively at the time
-of writing), with Chrome performing  significantly better on big DOM trees,
+It's tested on latest Chrome and Firefox (83 and 78 respectively at the time
+of writing), with Chrome performing significantly better on big DOM trees,
 possibly due to it's more performant SVG support, and the fact that it supports
  `CSSStyleDeclaration.cssText` property.  
 
@@ -173,19 +164,19 @@ _Safari [is not supported](https://github.com/tsayen/dom-to-image/issues/27), as
 
 Only standard lib is currently used, but make sure your browser supports:  
 
--   [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)  
--   SVG `<foreignObject>` tag
+- [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)  
+- SVG `<foreignObject>` tag
 
 ### Tests
 
 Most importantly, tests depend on:
 
--   [js-imagediff](https://github.com/HumbleSoftware/js-imagediff),
-    to compare rendered and control images
+- [js-imagediff](https://github.com/HumbleSoftware/js-imagediff),
+  to compare rendered and control images
 
--   [ocrad.js](https://github.com/antimatter15/ocrad.js), for the
-    parts when you can't compare images (due to the browser
-    rendering differences) and just have to test whether the text is rendered
+- [tesseract.js](https://github.com/naptha/tesseract.js#tesseractjs), for the
+  parts when you can't compare images (due to the browser
+  rendering differences) and just have to test whether the text is rendered
 
 ## How it works
 
@@ -198,56 +189,56 @@ This library uses a feature of SVG that allows having arbitrary HTML content
 inside of the `<foreignObject>` tag. So, in order to render that DOM node
 for you, following steps are taken:  
 
-1.  Clone the original DOM node recursively
+1. Clone the original DOM node recursively
 
-2.  Compute the style for the node and each sub-node and copy it to
-    corresponding clone
+2. Compute the style for the node and each sub-node and copy it to
+   corresponding clone
 
-    -   and don't forget to recreate pseudo-elements, as they are not
-        cloned in any way, of course
+    - and don't forget to recreate pseudo-elements, as they are not
+      cloned in any way, of course
 
-3.  Embed web fonts
+3. Embed web fonts
 
-    -   find all the `@font-face` declarations that might represent web fonts
+    - find all the `@font-face` declarations that might represent web fonts
 
-    -   parse file URLs, download corresponding files
+    - parse file URLs, download corresponding files
 
-    -   base64-encode and inline content as `data:` URLs
+    - base64-encode and inline content as `data:` URLs
 
-    -   concatenate all the processed CSS rules and put them into one `<style>`
-        element, then attach it to the clone
+    - concatenate all the processed CSS rules and put them into one `<style>`
+      element, then attach it to the clone
 
-4.  Embed images
+4. Embed images
 
-    -   embed image URLs in `<img>` elements
+    - embed image URLs in `<img>` elements
 
-    -   inline images used in `background` CSS property, in a fashion similar to
-        fonts
+    - inline images used in `background` CSS property, in a fashion similar to
+      fonts
 
-5.  Serialize the cloned node to XML
+5. Serialize the cloned node to XML
 
-6.  Wrap XML into the `<foreignObject>` tag, then into the SVG, then make it a
-    data URL
+6. Wrap XML into the `<foreignObject>` tag, then into the SVG, then make it a
+   data URL
 
-7.  Optionally, to get PNG content or raw pixel data as a Uint8Array, create an
-    Image element with the SVG as a source, and render it on an off-screen
-    canvas, that you have also created, then read the content from the canvas
+7. Optionally, to get PNG content or raw pixel data as a Uint8Array, create an
+   Image element with the SVG as a source, and render it on an off-screen
+   canvas, that you have also created, then read the content from the canvas
 
-8.  Done!  
+8. Done!  
 
 ## Things to watch out for
 
--   if the DOM node you want to render includes a `<canvas>` element with
-    something drawn on it, it should be handled fine, unless the canvas is
-    [tainted](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image) -
-    in this case rendering will rather not succeed.  
+- if the DOM node you want to render includes a `<canvas>` element with
+  something drawn on it, it should be handled fine, unless the canvas is
+  [tainted](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image) -
+  in this case rendering will rather not succeed.  
 
--   at the time of writing, Firefox has a problem with some external stylesheets
-    (see issue #13). In such case, the error will be caught and logged.  
+- at the time of writing, Firefox has a problem with some external stylesheets
+  (see issue #13). In such case, the error will be caught and logged.  
 
 ## Authors
 
-Anatolii Saienko, Paul Bakaus (original idea)
+Thomas Paillot, Anatolii Saienko, Paul Bakaus (original idea)
 
 ## License
 
