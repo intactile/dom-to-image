@@ -1,11 +1,9 @@
 dist: bionic
-addons:
-    firefox: "78.0"
 language: node_js
 node_js:
   - 12
-before_install:
-    - sudo apt-get update -q
-    - sudo apt-get install chromium-browser -y
-before_script:
-    - export CHROME_BIN=chromium-browser
+addons:
+  chrome: stable
+cache:
+  directories:
+    - node_modules

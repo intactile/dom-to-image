@@ -16,6 +16,8 @@ const karmaConfig = {
         '--remote-debugging-port=9222',
         '--no-sandbox',
         '--disable-setuid-sandbox',
+        '--disable-translate',
+        '--disable-extensions',
       ],
       debug: true,
     },
