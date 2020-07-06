@@ -18,19 +18,19 @@ features (like web font and image support) added.
 
 ### NPM
 
-`npm install dom-to-image-next`
+`npm install @intactile/dom-to-image-next`
 
 ### Yarn
 
-`yarn add dom-to-image-next`
+`yarn add @intactile/dom-to-image-next`
 
 Then load
 
 ```javascript
 /* in ES 6 */
-import domtoimage from 'dom-to-image-next';
+import domtoimage from '@intactile/dom-to-image-next';
 /* in ES 5 */
-const domtoimage = require('dom-to-image-next');
+const domtoimage = require('@intactile/dom-to-image-next');
 ```
 
 ## Usage

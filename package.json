@@ -1,5 +1,5 @@
 {
-  "name": "dom-to-image-next",
+  "name": "@intactile/dom-to-image-next",
   "version": "3.0.0",
   "description": "Generates an image from a DOM node using HTML5 canvas and SVG",
   "main": "umd/dom-to-image-next.js",
