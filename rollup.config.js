@@ -5,7 +5,7 @@ export default [
     input: 'src/index.js',
     plugins: [terser()],
     output: {
-      file: 'umd/dom-to-image.js',
+      file: 'umd/dom-to-image-next.js',
       format: 'umd',
       name: 'domToImage',
       esModule: false,
