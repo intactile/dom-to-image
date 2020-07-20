@@ -2,3 +2,8 @@
     width: 120px;
     overflow: hidden;
 }
+
+#dom-node svg {
+    display: block;
+}
+
