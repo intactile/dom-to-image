@@ -44,7 +44,8 @@
     "yargs": "^15.3.1"
   },
   "scripts": {
-    "test": "NODE_ENV=test karma start ./karma.config",
+    "test": "NODE_ENV=test karma start --browsers ChromeHeadless ./karma.config",
+    "test:firefox": "NODE_ENV=test karma start --browsers FirefoxHeadless ./karma.config",
     "test:watch": "npm test -- --watch",
     "lint": "eslint --max-warnings 0 .",
     "compile": "rollup --config",

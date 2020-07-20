@@ -23,7 +23,6 @@ const karmaConfig = {
     },
   },
   browserNoActivityTimeout: 120000,
-  browsers: ['ChromeHeadless'],
   singleRun: !argv.watch,
   coverageReporter: {
     dir: '.',
