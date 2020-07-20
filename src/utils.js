@@ -20,10 +20,10 @@ export function resolveUrl(url, baseUrl) {
 }
 
 export function makeImage(uri) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const image = new Image();
-    image.onload = resolve(image);
-    image.onerror = resolve();
+    image.addEventListener('load', () => resolve(image));
+    image.addEventListener('error', reject);
     image.src = uri;
   });
 }
