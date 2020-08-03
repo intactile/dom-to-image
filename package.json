@@ -4,12 +4,17 @@
   "description": "Generates an image from a DOM node using HTML5 canvas and SVG",
   "main": "umd/dom-to-image-next.js",
   "module": "esm/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "@babel/runtime": "^7.11.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.10.3",
     "@babel/core": "^7.10.3",
+    "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.10.3",
     "@fortawesome/fontawesome-free": "^5.13.1",
+    "@rollup/plugin-babel": "^5.1.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
     "babel-loader": "^8.1.0",
